@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<LanguageData>
+  <fair.ScheduledEvents.Title>Scheduled Events</fair.ScheduledEvents.Title>
+  <fair.ScheduledEvents.Hours>Hour(s)</fair.ScheduledEvents.Hours>
+  <fair.ScheduledEvents.Days>Day(s)</fair.ScheduledEvents.Days>
+  <fair.ScheduledEvents.Seasons>Season(s)</fair.ScheduledEvents.Seasons>
+  <fair.ScheduledEvents.Years>Year(s)</fair.ScheduledEvents.Years>
+  <fair.ScheduledEvents.MapEvent>Map</fair.ScheduledEvents.MapEvent>
+  <fair.ScheduledEvents.WorldEvent>World</fair.ScheduledEvents.WorldEvent>
+  <fair.ScheduledEvents.CaravanEvent>Caravan</fair.ScheduledEvents.CaravanEvent>
+  <fair.ScheduledEvents.SelEvery>Every {0}</fair.ScheduledEvents.SelEvery>
+  <fair.ScheduledEvents.SelRandomOne>Random {0}</fair.ScheduledEvents.SelRandomOne>
+  <fair.ScheduledEvents.SelFirst>First {0}</fair.ScheduledEvents.SelFirst>
+  <fair.ScheduledEvents.SettingLabel>{0} event for {1}:</fair.ScheduledEvents.SettingLabel>
+  <fair.ScheduledEvents.SettingRunEvery>Run event every:</fair.ScheduledEvents.SettingRunEvery>
+  <fair.ScheduledEvents.SettingOffsetBy>Offset first event by:</fair.ScheduledEvents.SettingOffsetBy>
+  <fair.ScheduledEvents.AddEvent>Add {0} event</fair.ScheduledEvents.AddEvent>
+  <fair.ScheduledEvents.RemoveEvent>Remove event</fair.ScheduledEvents.RemoveEvent>
+  <fair.ScheduledEvents.DebugLogging>Debug logging</fair.ScheduledEvents.DebugLogging>
+
+</LanguageData>
