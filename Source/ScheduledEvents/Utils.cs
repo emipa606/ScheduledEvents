@@ -1,9 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Xml;
-using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -11,7 +8,6 @@ namespace ScheduledEvents
 {
     public static class Utils
     {
-
         public static void LogMessage(string message)
         {
             Log.Message("[ScheduledEvents]: " + message);
@@ -38,19 +34,20 @@ namespace ScheduledEvents
             }
         }
 
-        public static void ScribeCustomList<T>(ref List<T> list, string label, Action<T> saver, Func<T> loader, IExposable caller)
+        public static void ScribeCustomList<T>(ref List<T> list, string label, Action<T> saver, Func<T> loader,
+            IExposable caller)
         {
             Scribe.EnterNode("events");
             try
             {
                 if (Scribe.mode == LoadSaveMode.Saving)
                 {
-                    foreach (T e in list)
+                    foreach (var e in list)
                     {
                         Scribe.EnterNode("li");
                         try
                         {
-                            saver.Invoke(e);
+                            saver(e);
                         }
                         finally
                         {
@@ -60,20 +57,20 @@ namespace ScheduledEvents
                 }
                 else if (Scribe.mode == LoadSaveMode.LoadingVars)
                 {
-                    XmlNode curXmlParent = Scribe.loader.curXmlParent;
+                    var curXmlParent = Scribe.loader.curXmlParent;
                     list = new List<T>();
-                    foreach (object obj in curXmlParent.ChildNodes)
+                    foreach (var obj in curXmlParent.ChildNodes)
                     {
-                        XmlNode subNode = (XmlNode)obj;
-                        XmlNode oldXmlParent = Scribe.loader.curXmlParent;
-                        IExposable oldParent = Scribe.loader.curParent;
-                        string oldPathRelToParent = Scribe.loader.curPathRelToParent;
+                        var subNode = (XmlNode) obj;
+                        var oldXmlParent = Scribe.loader.curXmlParent;
+                        var oldParent = Scribe.loader.curParent;
+                        var oldPathRelToParent = Scribe.loader.curPathRelToParent;
                         Scribe.loader.curPathRelToParent = null;
                         Scribe.loader.curParent = caller;
                         Scribe.loader.curXmlParent = subNode;
                         try
                         {
-                            list.Add(loader.Invoke());
+                            list.Add(loader());
                         }
                         finally
                         {
@@ -90,28 +87,30 @@ namespace ScheduledEvents
             }
         }
 
-        public static void DrawScaleSetting(int x, int y, int textWidth, int entryWidth, int entryHeight, int scaleWidth, string label, string scaleLabel, ref int value, int minValue, Action<IntervalScale> setScale)
+        public static void DrawScaleSetting(int x, int y, int textWidth, int entryWidth, int entryHeight,
+            int scaleWidth, string label, string scaleLabel, ref int value, int minValue,
+            Action<IntervalScale> setScale)
         {
-            Rect labelRect = new Rect(0, y + 5, textWidth, entryHeight);
+            var labelRect = new Rect(0, y + 5, textWidth, entryHeight);
             Widgets.Label(labelRect, label);
 
-            Rect fieldRect = new Rect(textWidth, y, entryWidth, entryHeight);
+            var fieldRect = new Rect(textWidth, y, entryWidth, entryHeight);
             string fieldBuffer = null; // Don't need string buffer for this
             Widgets.TextFieldNumeric(fieldRect, ref value, ref fieldBuffer, minValue, 1000);
 
-            Rect scaleButton = new Rect(textWidth + entryWidth, y, scaleWidth, entryHeight);
-            if (Widgets.ButtonText(scaleButton, scaleLabel))
+            var scaleButton = new Rect(textWidth + entryWidth, y, scaleWidth, entryHeight);
+            if (!Widgets.ButtonText(scaleButton, scaleLabel))
             {
-                List<FloatMenuOption> list = new List<FloatMenuOption>();
-                foreach (IntervalScale scale in IntervalScale.Values)
-                {
-                    list.Add(new FloatMenuOption(scale.label.Translate(), delegate
-                    {
-                        setScale.Invoke(scale);
-                    }));
-                }
-                Find.WindowStack.Add(new FloatMenu(list));
+                return;
             }
+
+            var list = new List<FloatMenuOption>();
+            foreach (var scale in IntervalScale.Values)
+            {
+                list.Add(new FloatMenuOption(scale.label.Translate(), delegate { setScale(scale); }));
+            }
+
+            Find.WindowStack.Add(new FloatMenu(list));
         }
     }
 }
