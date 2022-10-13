@@ -1,27 +1,18 @@
 # ScheduledEvents
 
-![Image](https://i.imgur.com/WAEzk68.png)
+![Image](https://i.imgur.com/buuPQel.png)
 
 Update of Fairs mod
 https://steamcommunity.com/sharedfiles/filedetails/?id=1727298377
 
-![Image](https://i.imgur.com/7Gzt3Rg.png)
+![Image](https://i.imgur.com/pufA0kM.png)
 
-
-[table]
-	[tr]
-		[td]https://invite.gg/Mlie]![Image](https://i.imgur.com/zdzzBrc.png)
-[/td]
-		[td]https://github.com/emipa606/ScheduledEvents]![Image](https://i.imgur.com/kTkpTOE.png)
-[/td]
-	[/tr]
-[/table]
 	
-![Image](https://i.imgur.com/NOW7jU1.png)
+![Image](https://i.imgur.com/Z4GOv8H.png)
 
 
 Adds ability to dynamically add and remove regularly scheduled events.
-Set up the events in Options -&gt; Mod Setttings -&gt; Scheduled Events.
+Set up the events in Options - Mod Setttings - Scheduled Events.
 
 Much like when creating a scenario and choosing create incident, but this has a few more options, like starting the event after a specific time, and change settings on the run during a game.
 
@@ -32,7 +23,7 @@ Note: I have not tested this with every event in the game. If you have any issue
 Current version is 1.1.0 created for RimWorld v. 1.0.2231.
 
 
-![Image](https://i.imgur.com/Rs6T6cr.png)
+![Image](https://i.imgur.com/PwoNOj4.png)
 
 
 
@@ -42,6 +33,7 @@ Current version is 1.1.0 created for RimWorld v. 1.0.2231.
 -  For best support, please use the Discord-channel for error-reporting.
 -  Do not report errors by making a discussion-thread, I get no notification of that.
 -  If you have the solution for a problem, please post it to the GitHub repository.
+
 
 
 
