@@ -4,11 +4,11 @@ using Verse;
 
 namespace ScheduledEvents;
 
-public class ScheduledEvent
+public class ScheduledEvent(IncidentTarget target, string incidentName)
 {
     // The reason we have to use name, is because when loading this, incident defs are not yet loaded.
-    public readonly string incidentName;
-    public readonly IncidentTarget incidentTarget;
+    public readonly string incidentName = incidentName;
+    public readonly IncidentTarget incidentTarget = target;
     private bool enabled = true; // If the event is enabled
 
     public int interval = 1; // The interval of which the events occur
@@ -17,12 +17,6 @@ public class ScheduledEvent
     public int offset; // The offset before the events start
     public IntervalScale offsetScale = IntervalScale.HOURS; // The offset scale
     public TargetSelector targetSelector = TargetSelector.EVERY;
-
-    public ScheduledEvent(IncidentTarget target, string incidentName)
-    {
-        incidentTarget = target;
-        this.incidentName = incidentName;
-    }
 
     public IncidentDef GetIncident()
     {

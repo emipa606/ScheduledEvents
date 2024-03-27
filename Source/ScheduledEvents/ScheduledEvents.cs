@@ -16,7 +16,7 @@ public class ScheduledEvents : Mod
         // Load settings?
         GetSettings<ScheduledEventsSettings>();
         currentVersion =
-            VersionFromManifest.GetVersionFromModMetaData(ModLister.GetActiveModWithIdentifier("Mlie.ScheduledEvents"));
+            VersionFromManifest.GetVersionFromModMetaData(content.ModMetaData);
     }
 
     public override void DoSettingsWindowContents(Rect inRect)

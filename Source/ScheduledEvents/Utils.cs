@@ -58,7 +58,7 @@ public static class Utils
             else if (Scribe.mode == LoadSaveMode.LoadingVars)
             {
                 var curXmlParent = Scribe.loader.curXmlParent;
-                list = new List<T>();
+                list = [];
                 foreach (var obj in curXmlParent.ChildNodes)
                 {
                     var subNode = (XmlNode)obj;

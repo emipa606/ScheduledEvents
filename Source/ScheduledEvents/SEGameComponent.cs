@@ -6,19 +6,11 @@ using Verse;
 
 namespace ScheduledEvents;
 
-public class SEGameComponent : GameComponent
+public class SEGameComponent(Game game) : GameComponent
 {
-    private readonly List<TickEvent> events;
+    private readonly List<TickEvent> events = [];
 
-    private readonly Game game;
-    private readonly List<NextEvent> nextEvents;
-
-    public SEGameComponent(Game game)
-    {
-        this.game = game;
-        events = new List<TickEvent>();
-        nextEvents = new List<NextEvent>();
-    }
+    private readonly List<NextEvent> nextEvents = [];
 
     public override void FinalizeInit()
     {
@@ -93,17 +85,8 @@ public class SEGameComponent : GameComponent
         base.GameComponentTick();
     }
 
-    private class NextEvent
+    private class NextEvent(IncidentDef incident, IIncidentTarget target)
     {
-        private readonly IncidentDef incident;
-        private readonly IIncidentTarget target;
-
-        public NextEvent(IncidentDef incident, IIncidentTarget target)
-        {
-            this.incident = incident;
-            this.target = target;
-        }
-
         public void Execute()
         {
             if (incident.TargetAllowed(target))
