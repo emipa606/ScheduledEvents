@@ -24,17 +24,17 @@ public class SEGameComponent(Game game) : GameComponent
         events.Clear();
         var currentTick = game.tickManager.TicksAbs;
         Utils.LogDebug("Loading scheduled events...");
-        foreach (var e in ScheduledEventsSettings.events)
+        foreach (var e in ScheduledEventsSettings.Events)
         {
             var nextEventTick = e.GetNextEventTick(currentTick);
             if (nextEventTick <= 0)
             {
-                Utils.LogDebug($"{e.incidentName} event has invalid next tick");
+                Utils.LogDebug($"{e.IncidentName} event has invalid next tick");
                 continue;
             }
 
             Utils.LogDebug(
-                $"Event {e.incidentName} will happen on {GenDate.HourOfDay(nextEventTick, 0)}h, {GenDate.DateFullStringAt(nextEventTick, Vector2.zero)}");
+                $"Event {e.IncidentName} will happen on {GenDate.HourOfDay(nextEventTick, 0)}h, {GenDate.DateFullStringAt(nextEventTick, Vector2.zero)}");
             TickEvent.AddToList(events, nextEventTick, e);
         }
     }
@@ -43,20 +43,21 @@ public class SEGameComponent(Game game) : GameComponent
     {
         var currentTick = game.tickManager.TicksAbs;
         var nextEvent = events.FirstOrDefault();
-        if (nextEvent != null && nextEvent.tick <= currentTick)
+        if (nextEvent != null && nextEvent.Tick <= currentTick)
         {
-            Utils.LogDebug($"Firing scheduled {nextEvent.e.incidentName} event!");
+            Utils.LogDebug($"Firing scheduled {nextEvent.E.IncidentName} event!");
             // Remove from list
             events.Remove(nextEvent);
-            var nextEventTick = nextEvent.e.GetNextEventTick(currentTick);
+            var nextEventTick = nextEvent.E.GetNextEventTick(currentTick);
 
-            var incident = nextEvent.e.GetIncident();
+            var incident = nextEvent.E.GetIncident();
             if (incident != null)
             {
-                var targets = nextEvent.e.incidentTarget.GetCurrentTarget(nextEvent.e);
-                if (targets.Any())
+                var targets = nextEvent.E.IncidentTarget.GetCurrentTarget(nextEvent.E);
+                var incidentTargets = targets as IIncidentTarget[] ?? targets.ToArray();
+                if (incidentTargets.Any())
                 {
-                    nextEvent.e.targetSelector.RunOn(targets,
+                    nextEvent.E.TargetSelector.RunOn(incidentTargets,
                         target => nextEvents.Add(new NextEvent(incident, target)));
                 }
                 else
@@ -72,7 +73,7 @@ public class SEGameComponent(Game game) : GameComponent
             Utils.LogDebug(
                 $"Next event will happen on {GenDate.HourOfDay(nextEventTick, 0)}h, {GenDate.DateFullStringAt(nextEventTick, Vector2.zero)}");
             //Utils.LogDebug($"Hours until: {(nextEventTick - currentTick) / GenDate.TicksPerHour}");
-            TickEvent.AddToList(events, nextEventTick, nextEvent.e);
+            TickEvent.AddToList(events, nextEventTick, nextEvent.E);
         }
 
         if (nextEvents.Count > 0)
@@ -96,7 +97,7 @@ public class SEGameComponent(Game game) : GameComponent
                 if (incident.pointsScaleable)
                 {
                     var stComp = Find.Storyteller.storytellerComps.First(x =>
-                        x is StorytellerComp_OnOffCycle || x is StorytellerComp_RandomMain);
+                        x is StorytellerComp_OnOffCycle or StorytellerComp_RandomMain);
                     parms = stComp.GenerateParms(incident.category, parms.target);
                 }
 

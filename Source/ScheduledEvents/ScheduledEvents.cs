@@ -24,11 +24,11 @@ public class ScheduledEvents : Mod
         GUI.BeginGroup(inRect);
 
         var y = 10;
-        var labelHeight = 25;
-        var entryHeight = 30;
-        var textWidth = 300;
-        var entryWidth = 100;
-        var scaleWidth = 100;
+        const int labelHeight = 25;
+        const int entryHeight = 30;
+        const int textWidth = 300;
+        const int entryWidth = 100;
+        const int scaleWidth = 100;
 
         if (currentVersion != null)
         {
@@ -39,30 +39,30 @@ public class ScheduledEvents : Mod
         }
 
         var outRect = new Rect(0, 0, inRect.width, inRect.height);
-        var rowHeight = labelHeight + 35 + ((entryHeight + 5) * 2) + 10;
+        const int rowHeight = labelHeight + 35 + ((entryHeight + 5) * 2) + 10;
         var scrollView = new Rect(0, 0, inRect.width - 20,
-            10 + (rowHeight * ScheduledEventsSettings.events.Count) + 35);
+            10 + (rowHeight * ScheduledEventsSettings.Events.Count) + 35);
         Widgets.BeginScrollView(outRect, ref settingsScrollPos, scrollView);
-        for (var i = 0; i < ScheduledEventsSettings.events.Count; i++)
+        for (var i = 0; i < ScheduledEventsSettings.Events.Count; i++)
         {
-            var e = ScheduledEventsSettings.events[i];
+            var e = ScheduledEventsSettings.Events[i];
             var headerLabel = new Rect(0, y, textWidth, labelHeight);
             Widgets.Label(headerLabel,
-                "fair.ScheduledEvents.SettingLabel".Translate(e.incidentName, e.incidentTarget.label.Translate()));
+                "fair.ScheduledEvents.SettingLabel".Translate(e.IncidentName, e.IncidentTarget.Label.Translate()));
 
-            if (e.incidentTarget.hasTargetSelector)
+            if (e.IncidentTarget.HasTargetSelector)
             {
                 var selectorButton = new Rect(textWidth, y, 200, labelHeight);
                 if (Widgets.ButtonText(selectorButton,
-                        e.targetSelector.label.Translate(e.incidentTarget.label.Translate())))
+                        e.TargetSelector.Label.Translate(e.IncidentTarget.Label.Translate())))
                 {
                     var list = new List<FloatMenuOption>();
                     foreach (var sel in TargetSelector.Values)
                     {
-                        list.Add(new FloatMenuOption(sel.label.Translate(e.incidentTarget.label.Translate()),
+                        list.Add(new FloatMenuOption(sel.Label.Translate(e.IncidentTarget.Label.Translate()),
                             delegate
                             {
-                                e.targetSelector = sel;
+                                e.TargetSelector = sel;
                                 base.WriteSettings();
                                 base.DoSettingsWindowContents(scrollView); // Update button text
                             }));
@@ -75,20 +75,20 @@ public class ScheduledEvents : Mod
             y += labelHeight;
 
             Utils.DrawScaleSetting(0, y, textWidth, entryWidth, entryHeight, scaleWidth,
-                "fair.ScheduledEvents.SettingRunEvery".Translate(), e.intervalScale.label.Translate(),
+                "fair.ScheduledEvents.SettingRunEvery".Translate(), e.IntervalScale.Label.Translate(),
                 ref e.interval, 1, scale =>
                 {
-                    e.intervalScale = scale;
+                    e.IntervalScale = scale;
                     base.WriteSettings();
                     base.DoSettingsWindowContents(scrollView); // Update button text
                 });
             y += entryHeight + 5;
 
             Utils.DrawScaleSetting(0, y, textWidth, entryWidth, entryHeight, scaleWidth,
-                "fair.ScheduledEvents.SettingOffsetBy".Translate(), e.offsetScale.label.Translate(), ref e.offset,
+                "fair.ScheduledEvents.SettingOffsetBy".Translate(), e.OffsetScale.Label.Translate(), ref e.Offset,
                 0, scale =>
                 {
-                    e.offsetScale = scale;
+                    e.OffsetScale = scale;
                     base.WriteSettings();
                     base.DoSettingsWindowContents(scrollView); // Update button text
                 });
@@ -99,7 +99,7 @@ public class ScheduledEvents : Mod
             GUI.color = new Color(1f, 0.3f, 0.35f);
             if (Widgets.ButtonText(removeButton, "fair.ScheduledEvents.RemoveEvent".Translate()))
             {
-                ScheduledEventsSettings.events.RemoveAt(i);
+                ScheduledEventsSettings.Events.RemoveAt(i);
                 base.WriteSettings();
                 base.DoSettingsWindowContents(scrollView); // Update window
             }
@@ -116,7 +116,7 @@ public class ScheduledEvents : Mod
         foreach (var target in IncidentTarget.Values)
         {
             var addButton = new Rect(addButtonX, y, 200, 30);
-            if (Widgets.ButtonText(addButton, "fair.ScheduledEvents.AddEvent".Translate(target.label.Translate())))
+            if (Widgets.ButtonText(addButton, "fair.ScheduledEvents.AddEvent".Translate(target.Label.Translate())))
             {
                 var list = new List<FloatMenuOption>();
 
@@ -126,8 +126,8 @@ public class ScheduledEvents : Mod
                 {
                     list.Add(new FloatMenuOption(incident.defName, delegate
                     {
-                        ScheduledEventsSettings.events.Add(new ScheduledEvent(target, incident.defName));
-                        Utils.LogDebug("Added scheduled " + target.label.Translate() + " event");
+                        ScheduledEventsSettings.Events.Add(new ScheduledEvent(target, incident.defName));
+                        Utils.LogDebug("Added scheduled " + target.Label.Translate() + " event");
                         base.WriteSettings();
                         base.DoSettingsWindowContents(inRect); // Update window contents
                     }));
@@ -141,7 +141,7 @@ public class ScheduledEvents : Mod
 
         var debugLogging = new Rect(addButtonX, y, 200, 30);
         Widgets.CheckboxLabeled(debugLogging, "fair.ScheduledEvents.DebugLogging".Translate(),
-            ref ScheduledEventsSettings.logDebug);
+            ref ScheduledEventsSettings.LOGDebug);
 
         Widgets.EndScrollView();
 

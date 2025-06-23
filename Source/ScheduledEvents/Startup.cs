@@ -7,6 +7,6 @@ public static class Startup
 {
     static Startup()
     {
-        Utils.LogMessage($"Loaded {ScheduledEventsSettings.events.Count} events from settings.");
+        Utils.LogMessage($"Loaded {ScheduledEventsSettings.Events.Count} events from settings.");
     }
 }

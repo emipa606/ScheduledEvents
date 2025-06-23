@@ -5,17 +5,17 @@ namespace ScheduledEvents;
 
 public class ScheduledEventsSettings : ModSettings
 {
-    public static bool logDebug;
-    public static List<ScheduledEvent> events = [];
+    public static bool LOGDebug;
+    public static List<ScheduledEvent> Events = [];
 
     public override void ExposeData()
     {
-        Scribe_Values.Look(ref logDebug, "logDebug",
+        Scribe_Values.Look(ref LOGDebug, "logDebug",
             true); // TODO: Set this to false on release, make a setting for it?
-        Utils.ScribeCustomList(ref events, "events", e =>
+        Utils.ScribeCustomList(ref Events, "events", e =>
         {
-            var incidentName = e.incidentName;
-            var incidentTarget = e.incidentTarget;
+            var incidentName = e.IncidentName;
+            var incidentTarget = e.IncidentTarget;
             Scribe_Values.Look(ref incidentName, "incident");
             IncidentTarget.Look(ref incidentTarget, "incidentTarget");
             e.Scribe();
@@ -35,7 +35,7 @@ public class ScheduledEventsSettings : ModSettings
             e.Scribe();
             return e;
         }, this);
-        events.RemoveAll(e => e == null); // Remove all nulls
+        Events.RemoveAll(e => e == null); // Remove all nulls
         if (Scribe.mode == LoadSaveMode.Saving)
         {
             // We should try and find out game component and run an update on it

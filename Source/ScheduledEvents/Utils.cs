@@ -20,7 +20,7 @@ public static class Utils
 
     public static void LogDebug(string message)
     {
-        if (ScheduledEventsSettings.logDebug)
+        if (ScheduledEventsSettings.LOGDebug)
         {
             Log.Message($"[ScheduledEvents DEBUG]: {message}");
         }
@@ -28,7 +28,7 @@ public static class Utils
 
     public static void LogDebugWarning(string message)
     {
-        if (ScheduledEventsSettings.logDebug)
+        if (ScheduledEventsSettings.LOGDebug)
         {
             Log.Warning($"[ScheduledEvents DEBUG]: {message}");
         }
@@ -107,7 +107,7 @@ public static class Utils
         var list = new List<FloatMenuOption>();
         foreach (var scale in IntervalScale.Values)
         {
-            list.Add(new FloatMenuOption(scale.label.Translate(), delegate { setScale(scale); }));
+            list.Add(new FloatMenuOption(scale.Label.Translate(), delegate { setScale(scale); }));
         }
 
         Find.WindowStack.Add(new FloatMenu(list));

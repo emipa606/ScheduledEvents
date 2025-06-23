@@ -8,23 +8,23 @@ namespace ScheduledEvents;
 
 public class IncidentTarget
 {
-    private static readonly IncidentTarget MAP = new IncidentTarget(0, "fair.ScheduledEvents.MapEvent",
+    private static readonly IncidentTarget map = new(0, "fair.ScheduledEvents.MapEvent",
         "Map_PlayerHome", true, _ =>
         {
             return Find.Maps.Select(m => (IIncidentTarget)m);
             //return Enumerable.Repeat<IIncidentTarget>(Find.AnyPlayerHomeMap, 1);
         });
 
-    private static readonly IncidentTarget WORLD = new IncidentTarget(1, "fair.ScheduledEvents.WorldEvent", "World",
+    private static readonly IncidentTarget world = new(1, "fair.ScheduledEvents.WorldEvent", "World",
         false, _ => Enumerable.Repeat<IIncidentTarget>(Find.World, 1));
 
-    private static readonly IncidentTarget CARAVAN = new IncidentTarget(2, "fair.ScheduledEvents.CaravanEvent",
-        "Caravan", true, _ => { return Find.WorldObjects.Caravans.Select(c => (IIncidentTarget)c); });
+    private static readonly IncidentTarget caravan = new(2, "fair.ScheduledEvents.CaravanEvent",
+        "Caravan", true, _ => { return Find.WorldObjects.Caravans.Select(IIncidentTarget (c) => c); });
 
-    public readonly bool hasTargetSelector;
+    public readonly bool HasTargetSelector;
 
     private readonly int id;
-    public readonly string label;
+    public readonly string Label;
     private readonly string targetDefName;
     private readonly Func<ScheduledEvent, IEnumerable<IIncidentTarget>> targetGetter;
 
@@ -32,19 +32,19 @@ public class IncidentTarget
         Func<ScheduledEvent, IEnumerable<IIncidentTarget>> targetGetter)
     {
         this.id = id;
-        this.label = label;
+        Label = label;
         this.targetDefName = targetDefName;
         this.targetGetter = targetGetter;
-        this.hasTargetSelector = hasTargetSelector;
+        HasTargetSelector = hasTargetSelector;
     }
 
     public static IEnumerable<IncidentTarget> Values
     {
         get
         {
-            yield return MAP;
-            yield return WORLD;
-            yield return CARAVAN;
+            yield return map;
+            yield return world;
+            yield return caravan;
         }
     }
 
@@ -52,21 +52,21 @@ public class IncidentTarget
     public static void Look(ref IncidentTarget value, string label)
     {
         var id = value?.id ?? -1;
-        Scribe_Values.Look(ref id, label, default, true);
+        Scribe_Values.Look(ref id, label, 0, true);
         var found = Values.FirstOrDefault(target => target.id == id);
         value = found;
     }
 
-    private IncidentTargetTagDef GetTargetTag()
+    private IncidentTargetTagDef getTargetTag()
     {
         return DefDatabase<IncidentTargetTagDef>.AllDefs.FirstOrDefault(e => e.defName.Equals(targetDefName));
     }
 
     public IEnumerable<IncidentDef> GetAllIncidentDefs()
     {
-        var targetDef = GetTargetTag();
+        var targetDef = getTargetTag();
         return targetDef == null
-            ? Enumerable.Empty<IncidentDef>()
+            ? []
             : DefDatabase<IncidentDef>.AllDefs.Where(e => e.TargetTagAllowed(targetDef));
     }
 

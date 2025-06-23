@@ -8,7 +8,7 @@ namespace ScheduledEvents;
 
 public class TargetSelector
 {
-    public static readonly TargetSelector EVERY = new TargetSelector(0, "fair.ScheduledEvents.SelEvery",
+    public static readonly TargetSelector Every = new(0, "fair.ScheduledEvents.SelEvery",
         (targets, action) =>
         {
             foreach (var target in targets)
@@ -17,22 +17,23 @@ public class TargetSelector
             }
         });
 
-    private static readonly TargetSelector RANDOM_ONE = new TargetSelector(1, "fair.ScheduledEvents.SelRandomOne",
+    private static readonly TargetSelector randomOne = new(1, "fair.ScheduledEvents.SelRandomOne",
         (targets, action) =>
         {
-            if (!targets.Any())
+            var incidentTargets = targets as IIncidentTarget[] ?? targets.ToArray();
+            if (!incidentTargets.Any())
             {
                 return;
             }
 
-            var target = targets.RandomElementWithFallback();
+            var target = incidentTargets.RandomElementWithFallback();
             if (target != null)
             {
                 action(target);
             }
         });
 
-    private static readonly TargetSelector FIRST = new TargetSelector(2, "fair.ScheduledEvents.SelFirst",
+    private static readonly TargetSelector first = new(2, "fair.ScheduledEvents.SelFirst",
         (targets, action) =>
         {
             var target = targets.FirstOrFallback();
@@ -45,13 +46,13 @@ public class TargetSelector
     private readonly Action<IEnumerable<IIncidentTarget>, Action<IIncidentTarget>> action;
 
     private readonly int id;
-    public readonly string label;
+    public readonly string Label;
 
     private TargetSelector(int id, string label,
         Action<IEnumerable<IIncidentTarget>, Action<IIncidentTarget>> action)
     {
         this.id = id;
-        this.label = label;
+        Label = label;
         this.action = action;
     }
 
@@ -59,9 +60,9 @@ public class TargetSelector
     {
         get
         {
-            yield return EVERY;
-            yield return RANDOM_ONE;
-            yield return FIRST;
+            yield return Every;
+            yield return randomOne;
+            yield return first;
         }
     }
 
@@ -69,11 +70,11 @@ public class TargetSelector
     public static void Look(ref TargetSelector value, string label)
     {
         var id = value.id;
-        Scribe_Values.Look(ref id, label, default, true);
+        Scribe_Values.Look(ref id, label, 0, true);
         var found = Values.FirstOrDefault(sel => sel.id == id);
         if (found == null)
         {
-            found = EVERY; // Default value
+            found = Every; // Default value
         }
 
         value = found;

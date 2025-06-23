@@ -4,13 +4,13 @@ namespace ScheduledEvents;
 
 public class TickEvent
 {
-    public readonly ScheduledEvent e;
-    public readonly int tick;
+    public readonly ScheduledEvent E;
+    public readonly int Tick;
 
     private TickEvent(int tick, ScheduledEvent e)
     {
-        this.tick = tick;
-        this.e = e;
+        Tick = tick;
+        E = e;
     }
 
     // Adds the scheduled event to the list sorted
@@ -19,7 +19,7 @@ public class TickEvent
         for (var i = 0; i < list.Count; i++)
         {
             var o = list[i];
-            if (tick >= o.tick)
+            if (tick >= o.Tick)
             {
                 continue;
             }
