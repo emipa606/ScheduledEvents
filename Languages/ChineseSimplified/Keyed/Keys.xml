@@ -19,4 +19,7 @@
   <fair.ScheduledEvents.AddEvent>添加 {0} 事件</fair.ScheduledEvents.AddEvent>
   <fair.ScheduledEvents.RemoveEvent>删除事件</fair.ScheduledEvents.RemoveEvent>
   <fair.ScheduledEvents.DebugLogging>调试日志</fair.ScheduledEvents.DebugLogging>
+  <fair.ScheduledEvents.Name>按名称排序</fair.ScheduledEvents.Name>
+  <fair.ScheduledEvents.Time>按剩余时间排序（需要激活游戏）</fair.ScheduledEvents.Time>
+  <fair.ScheduledEvents.NextEventIn>中触发：{0}</fair.ScheduledEvents.NextEventIn>
 </LanguageData>

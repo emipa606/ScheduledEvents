@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Mlie;
+using RimWorld;
 using UnityEngine;
 using Verse;
 
@@ -9,6 +10,7 @@ namespace ScheduledEvents;
 public class ScheduledEvents : Mod
 {
     private static string currentVersion;
+    private static bool sortByTime;
     private Vector2 settingsScrollPos;
 
     public ScheduledEvents(ModContentPack content) : base(content)
@@ -43,12 +45,44 @@ public class ScheduledEvents : Mod
         var scrollView = new Rect(0, 0, inRect.width - 20,
             10 + (rowHeight * ScheduledEventsSettings.Events.Count) + 35);
         Widgets.BeginScrollView(outRect, ref settingsScrollPos, scrollView);
-        for (var i = 0; i < ScheduledEventsSettings.Events.Count; i++)
+        if (Widgets.RadioButtonLabeled(new Rect(0, y, inRect.width / 3, 30), "fair.ScheduledEvents.Name".Translate(),
+                !sortByTime))
         {
-            var e = ScheduledEventsSettings.Events[i];
+            sortByTime = false;
+        }
+
+        if (Widgets.RadioButtonLabeled(new Rect(inRect.width / 2, y, inRect.width / 3, 30),
+                "fair.ScheduledEvents.Time".Translate(), sortByTime, Current.Game == null))
+        {
+            sortByTime = true;
+        }
+
+        List<ScheduledEvent> sortedEvents;
+        if (sortByTime && Current.Game != null)
+        {
+            sortedEvents = ScheduledEventsSettings.Events
+                .OrderBy(scheduledEvent => scheduledEvent.GetNextEventTick(GenTicks.TicksGame))
+                .ToList();
+        }
+        else
+        {
+            sortedEvents = ScheduledEventsSettings.Events.OrderBy(scheduledEvent => scheduledEvent.IncidentName)
+                .ToList();
+        }
+
+        y += labelHeight * 2;
+        for (var i = 0; i < sortedEvents.Count; i++)
+        {
+            var e = sortedEvents[i];
             var headerLabel = new Rect(0, y, textWidth, labelHeight);
             Widgets.Label(headerLabel,
                 "fair.ScheduledEvents.SettingLabel".Translate(e.IncidentName, e.IncidentTarget.Label.Translate()));
+            if (Current.Game != null)
+            {
+                Widgets.Label(new Rect(inRect.width / 3 * 2, y, inRect.width / 4, labelHeight),
+                    "fair.ScheduledEvents.NextEventIn".Translate(
+                        (e.GetNextEventTick(GenTicks.TicksGame) - GenTicks.TicksGame).ToStringTicksToPeriod()));
+            }
 
             if (e.IncidentTarget.HasTargetSelector)
             {

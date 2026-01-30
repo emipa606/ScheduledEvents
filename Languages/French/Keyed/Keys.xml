@@ -19,4 +19,7 @@
   <fair.ScheduledEvents.AddEvent>Ajouter {0} événement</fair.ScheduledEvents.AddEvent>
   <fair.ScheduledEvents.RemoveEvent>Supprimer l'événement</fair.ScheduledEvents.RemoveEvent>
   <fair.ScheduledEvents.DebugLogging>Journalisation de débogage</fair.ScheduledEvents.DebugLogging>
+  <fair.ScheduledEvents.Name>Ordre par nom</fair.ScheduledEvents.Name>
+  <fair.ScheduledEvents.Time>Ordre par temps restant (jeu actif nécessaire)</fair.ScheduledEvents.Time>
+  <fair.ScheduledEvents.NextEventIn>Déclencheurs en : {0}</fair.ScheduledEvents.NextEventIn>
 </LanguageData>

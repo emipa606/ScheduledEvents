@@ -19,4 +19,7 @@
   <fair.ScheduledEvents.AddEvent>Ereignis {0} hinzufügen</fair.ScheduledEvents.AddEvent>
   <fair.ScheduledEvents.RemoveEvent>Ereignis entfernen</fair.ScheduledEvents.RemoveEvent>
   <fair.ScheduledEvents.DebugLogging>Debug-Protokollierung</fair.ScheduledEvents.DebugLogging>
+  <fair.ScheduledEvents.Name>Reihenfolge nach Name</fair.ScheduledEvents.Name>
+  <fair.ScheduledEvents.Time>Reihenfolge nach verbleibender Zeit (aktives Spiel erforderlich)</fair.ScheduledEvents.Time>
+  <fair.ScheduledEvents.NextEventIn>Auslöser in: {0}</fair.ScheduledEvents.NextEventIn>
 </LanguageData>

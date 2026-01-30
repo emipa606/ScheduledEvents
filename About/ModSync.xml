@@ -2,7 +2,7 @@
 <ModSyncNinjaData>
   <ID>d39a22fe-c2ef-4cf9-969b-2b9a716c0249</ID>
   <ModName>Scheduled Events (Continued)</ModName>
-  <Version>1.6.0</Version>
+  <Version>1.6.1</Version>
   <SaveBreaking>False</SaveBreaking>
   <Host name="Github">
     <Owner>emipa606</Owner>
