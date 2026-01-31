@@ -1,5 +1,8 @@
 # Changelog for ScheduledEvents
 
+1.6.2 - Fixed add-button position
+
+
 1.6.1 - Added sorting by name/time and added a time until trigger info
 Used DeepL to update translations for ChineseSimplified, French, German
 

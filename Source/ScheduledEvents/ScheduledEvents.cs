@@ -43,7 +43,7 @@ public class ScheduledEvents : Mod
         var outRect = new Rect(0, 0, inRect.width, inRect.height);
         const int rowHeight = labelHeight + 35 + ((entryHeight + 5) * 2) + 10;
         var scrollView = new Rect(0, 0, inRect.width - 20,
-            10 + (rowHeight * ScheduledEventsSettings.Events.Count) + 35);
+            10 + (rowHeight * ScheduledEventsSettings.Events.Count) + 90);
         Widgets.BeginScrollView(outRect, ref settingsScrollPos, scrollView);
         if (Widgets.RadioButtonLabeled(new Rect(0, y, inRect.width / 3, 30), "fair.ScheduledEvents.Name".Translate(),
                 !sortByTime))
