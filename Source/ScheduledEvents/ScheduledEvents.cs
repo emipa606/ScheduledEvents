@@ -154,13 +154,11 @@ public class ScheduledEvents : Mod
             {
                 var list = new List<FloatMenuOption>();
 
-                //Utils.LogMessage("Events: " + DefDatabase<IncidentDef>.AllDefs.Count());
-
-                foreach (var incident in from d in target.GetAllIncidentDefs() orderby d.defName select d)
+                foreach (var incident in from d in target.GetAllIncidentDefs() orderby d.defName select d.defName)
                 {
-                    list.Add(new FloatMenuOption(incident.defName, delegate
+                    list.Add(new FloatMenuOption(incident, delegate
                     {
-                        ScheduledEventsSettings.Events.Add(new ScheduledEvent(target, incident.defName));
+                        ScheduledEventsSettings.Events.Add(new ScheduledEvent(target, incident));
                         Utils.LogDebug("Added scheduled " + target.Label.Translate() + " event");
                         base.WriteSettings();
                         base.DoSettingsWindowContents(inRect); // Update window contents

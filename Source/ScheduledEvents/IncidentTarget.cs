@@ -9,11 +9,7 @@ namespace ScheduledEvents;
 public class IncidentTarget
 {
     private static readonly IncidentTarget map = new(0, "fair.ScheduledEvents.MapEvent",
-        "Map_PlayerHome", true, _ =>
-        {
-            return Find.Maps.Select(m => (IIncidentTarget)m);
-            //return Enumerable.Repeat<IIncidentTarget>(Find.AnyPlayerHomeMap, 1);
-        });
+        "Map_PlayerHome", true, _ => { return Find.Maps.Select(m => (IIncidentTarget)m); });
 
     private static readonly IncidentTarget world = new(1, "fair.ScheduledEvents.WorldEvent", "World",
         false, _ => Enumerable.Repeat<IIncidentTarget>(Find.World, 1));
@@ -22,9 +18,9 @@ public class IncidentTarget
         "Caravan", true, _ => { return Find.WorldObjects.Caravans.Select(IIncidentTarget (c) => c); });
 
     public readonly bool HasTargetSelector;
+    public readonly string Label;
 
     private readonly int id;
-    public readonly string Label;
     private readonly string targetDefName;
     private readonly Func<ScheduledEvent, IEnumerable<IIncidentTarget>> targetGetter;
 

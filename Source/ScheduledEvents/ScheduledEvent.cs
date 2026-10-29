@@ -9,14 +9,14 @@ public class ScheduledEvent(IncidentTarget target, string incidentName)
     // The reason we have to use name, is because when loading this, incident defs are not yet loaded.
     public readonly string IncidentName = incidentName;
     public readonly IncidentTarget IncidentTarget = target;
-    private bool enabled = true; // If the event is enabled
-
-    public int interval = 1; // The interval of which the events occur
     public IntervalScale IntervalScale = IntervalScale.Hours; // The interval scale
 
     public int Offset; // The offset before the events start
     public IntervalScale OffsetScale = IntervalScale.Hours; // The offset scale
     public TargetSelector TargetSelector = TargetSelector.Every;
+    private bool enabled = true; // If the event is enabled
+
+    public int interval = 1; // The interval of which the events occur
 
     public IncidentDef GetIncident()
     {

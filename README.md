@@ -35,4 +35,4 @@ Current version is 1.1.0 created for RimWorld v. 1.0.2231.
 
  
 
-[![Image](https://img.shields.io/github/v/release/emipa606/ScheduledEvents?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2126125070) | tags: game schedule
+[![Image](https://img.shields.io/github/v/release/emipa606/ScheduledEvents?label=latest%20version&style=plastic&color=9f1111&labelColor=black)](https://steamcommunity.com/sharedfiles/filedetails/changelog/2126125070) | game schedule

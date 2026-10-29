@@ -10,15 +10,14 @@ public class ScheduledEventsSettings : ModSettings
 
     public override void ExposeData()
     {
-        Scribe_Values.Look(ref LOGDebug, "logDebug",
-            true); // TODO: Set this to false on release, make a setting for it?
+        Scribe_Values.Look(ref LOGDebug, "logDebug");
         Utils.ScribeCustomList(ref Events, "events", e =>
         {
-            var incidentName = e.IncidentName;
-            var incidentTarget = e.IncidentTarget;
+            var incidentName = e?.IncidentName;
+            var incidentTarget = e?.IncidentTarget;
             Scribe_Values.Look(ref incidentName, "incident");
             IncidentTarget.Look(ref incidentTarget, "incidentTarget");
-            e.Scribe();
+            e?.Scribe();
         }, () =>
         {
             string incidentName = null;
@@ -36,14 +35,11 @@ public class ScheduledEventsSettings : ModSettings
             return e;
         }, this);
         Events.RemoveAll(e => e == null); // Remove all nulls
-        if (Scribe.mode == LoadSaveMode.Saving)
+        if (Scribe.mode == LoadSaveMode.Saving && Current.Game != null)
         {
             // We should try and find out game component and run an update on it
-            if (Current.Game != null)
-            {
-                var comp = Current.Game.GetComponent<SEGameComponent>();
-                comp?.ReloadEvents();
-            }
+            var comp = Current.Game.GetComponent<SEGameComponent>();
+            comp?.ReloadEvents();
         }
 
         base.ExposeData();

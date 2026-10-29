@@ -72,21 +72,19 @@ public class SEGameComponent(Game game) : GameComponent
 
             Utils.LogDebug(
                 $"Next event will happen on {GenDate.HourOfDay(nextEventTick, 0)}h, {GenDate.DateFullStringAt(nextEventTick, Vector2.zero)}");
-            //Utils.LogDebug($"Hours until: {(nextEventTick - currentTick) / GenDate.TicksPerHour}");
             TickEvent.AddToList(events, nextEventTick, nextEvent.E);
         }
 
         if (nextEvents.Count > 0)
         {
-            nextEvents.First().Execute();
+            nextEvents[0].Execute();
             nextEvents.RemoveAt(0);
         }
 
-        //Current.Game.storyteller.TryFire()
         base.GameComponentTick();
     }
 
-    private class NextEvent(IncidentDef incident, IIncidentTarget target)
+    private sealed class NextEvent(IncidentDef incident, IIncidentTarget target)
     {
         public void Execute()
         {

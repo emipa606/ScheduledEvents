@@ -43,10 +43,11 @@ public class TargetSelector
             }
         });
 
+    public readonly string Label;
+
     private readonly Action<IEnumerable<IIncidentTarget>, Action<IIncidentTarget>> action;
 
     private readonly int id;
-    public readonly string Label;
 
     private TargetSelector(int id, string label,
         Action<IEnumerable<IIncidentTarget>, Action<IIncidentTarget>> action)
@@ -71,11 +72,7 @@ public class TargetSelector
     {
         var id = value.id;
         Scribe_Values.Look(ref id, label, 0, true);
-        var found = Values.FirstOrDefault(sel => sel.id == id);
-        if (found == null)
-        {
-            found = Every; // Default value
-        }
+        var found = Values.FirstOrDefault(sel => sel.id == id) ?? Every; // Default value
 
         value = found;
     }

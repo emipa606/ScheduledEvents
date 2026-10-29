@@ -14,10 +14,10 @@ public class IntervalScale
     private static readonly IntervalScale seasons = new(2, "fair.ScheduledEvents.Seasons", GenDate.TicksPerSeason);
 
     private static readonly IntervalScale years = new(3, "fair.ScheduledEvents.Years", GenDate.TicksPerYear);
-
-    private readonly int id;
     public readonly string Label;
     public readonly int TicksPerUnit;
+
+    private readonly int id;
 
     private IntervalScale(int id, string label, int ticksPerUnit)
     {
